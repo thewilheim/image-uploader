@@ -10,7 +10,7 @@ function SelectImage({ imageFile, setImageFile, DefaultImg, drop }) {
         <h2>File should be JPEG, PNG....</h2>
       </div>
       <form
-        action={`${URL}/api/uploadImage`}
+        action={`${URL}/upload`}
         method="POST"
         encType="multipart/form-data"
         onSubmit={(e) => {
@@ -27,6 +27,7 @@ function SelectImage({ imageFile, setImageFile, DefaultImg, drop }) {
           name="imgUpload"
           id="imgUpload"
           style={{ display: "none" }}
+          accept=".png,.jpeg"
           onChange={(e) => {
             setImageFile(e.target.files[0]);
           }}

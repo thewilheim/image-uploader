@@ -28,10 +28,10 @@ function FileUpload() {
       body: formdata,
     };
 
-    fetch(`${URL}/api/uploadImage/api/uploadImage`, requestOptions)
+    fetch(`${URL}/upload`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        setFilePath(`${URL}/image/${result.filename}`);
+        setFilePath(`${URL}/files/${result.fileName}`);
         console.log(result);
       })
       .catch((error) => console.log("error", error));
