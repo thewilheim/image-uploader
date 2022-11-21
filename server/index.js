@@ -30,6 +30,10 @@ app.use(
 
 app.use("/image", express.static(__dirname + "/uploads"));
 
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
+
 app.post("/api/uploadImage", upload.single("image"), (req, res) => {
   res.send(req.file);
 });
