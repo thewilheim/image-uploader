@@ -1,6 +1,8 @@
 import React from "react";
 
 function SelectImage({ imageFile, setImageFile, DefaultImg, drop }) {
+  const URL = process.env.URL || "http://localhost:8080";
+
   return (
     <>
       <div>
@@ -8,7 +10,7 @@ function SelectImage({ imageFile, setImageFile, DefaultImg, drop }) {
         <h2>File should be JPEG, PNG....</h2>
       </div>
       <form
-        action="http://localhost:8080/api/uploadImage"
+        action={`${URL}/api/uploadImage`}
         method="POST"
         encType="multipart/form-data"
         onSubmit={(e) => {

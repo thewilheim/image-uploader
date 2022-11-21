@@ -9,7 +9,7 @@ function FileUpload() {
   const [uploading, setUploading] = useState(false);
   const [imageFile, setImageFile] = useState("");
   const [filePath, setFilePath] = useState(null);
-
+  const URL = process.env.URL || "http://localhost:8080";
   const drop = useRef(null);
 
   useEffect(() => {
@@ -28,10 +28,10 @@ function FileUpload() {
       body: formdata,
     };
 
-    fetch("http://localhost:8080/api/uploadImage", requestOptions)
+    fetch(`${URL}/api/uploadImage/api/uploadImage`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        setFilePath(`http://localhost:8080/image/${result.filename}`);
+        setFilePath(`${URL}/image/${result.filename}`);
         console.log(result);
       })
       .catch((error) => console.log("error", error));
