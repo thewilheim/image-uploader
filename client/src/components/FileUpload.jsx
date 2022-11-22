@@ -4,20 +4,21 @@ import { useRef } from "react";
 import DefaultImg from "../images/image.svg";
 import SelectImage from "./SelectImage";
 import SucessfulUpload from "./SucessfulUpload";
+import Uploading from "./Uploading";
 
 function FileUpload() {
   const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState({
+    errorMsg: "",
+    hasError: false,
+  });
   const [imageFile, setImageFile] = useState("");
   const [filePath, setFilePath] = useState(null);
-  const URL = process.env.URL || "http://localhost:8080";
-  const drop = useRef(null);
-
-  useEffect(() => {
-    drop.current.addEventListener("dragover", handleDragOver);
-    drop.current.addEventListener("drop", handleDrop);
-  }, []);
+  const URL = process.env.URL;
 
   const uploadFile = () => {
+    setUploading(true);
+
     const formdata = new FormData();
     formdata.append("image", imageFile);
 
@@ -37,22 +38,6 @@ function FileUpload() {
       .catch((error) => console.log("error", error));
   };
 
-  const handleDragOver = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-  };
-
-  const handleDrop = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    const listOfDraggedFiles = e.dataTransfer.files;
-
-    if (listOfDraggedFiles && listOfDraggedFiles.length) {
-      setImageFile(listOfDraggedFiles[0]);
-    }
-  };
-
   useEffect(() => {
     if (imageFile === "") {
       return;
@@ -61,29 +46,28 @@ function FileUpload() {
     uploadFile();
     setTimeout(() => {
       setUploading(false);
-    }, 1000);
+    }, 2500);
   }, [imageFile]);
 
   if (uploading) {
-    return (
-      <div className="uploadCard">
-        <div>
-          <h1>Uploading........</h1>
-        </div>
-      </div>
-    );
+    return <Uploading />;
   }
 
   return (
     <div className="uploadCard">
+      {error.hasError ? (
+        <>
+          <div>{error.errorMsg}</div>
+        </>
+      ) : null}
       {imageFile ? (
         <SucessfulUpload imageFile={imageFile} urlPath={filePath} />
       ) : (
         <SelectImage
           imageFile={imageFile}
           setImageFile={setImageFile}
-          drop={drop}
           DefaultImg={DefaultImg}
+          setError={setError}
         />
       )}
     </div>
