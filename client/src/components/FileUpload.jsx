@@ -14,7 +14,6 @@ function FileUpload() {
   });
   const [imageFile, setImageFile] = useState("");
   const [filePath, setFilePath] = useState(null);
-  const URL = process.env.URL;
 
   const uploadFile = () => {
     setUploading(true);
@@ -29,10 +28,12 @@ function FileUpload() {
       body: formdata,
     };
 
-    fetch(`${URL}/upload`, requestOptions)
+    fetch(`https://image-uploader-server-rho.vercel.app/upload`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        setFilePath(`${URL}/files/${result.fileName}`);
+        setFilePath(
+          `https://image-uploader-server-rho.vercel.app/files/${result.fileName}`
+        );
         console.log(result);
       })
       .catch((error) => console.log("error", error));
