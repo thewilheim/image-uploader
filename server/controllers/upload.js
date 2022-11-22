@@ -1,13 +1,13 @@
 const upload = require("../middleware/upload");
 const dbConfig = require("../config/database");
 
-const MongoClient = require("mongodb").MongoClient;
+const { MongoClient, ServerApiVersion } = require("mongodb");
 const GridFSBucket = require("mongodb").GridFSBucket;
 
 const url = dbConfig.url;
 let baseUrl = process.env.URL_PATH || "http://localhost:8080";
 
-const mongoClient = new MongoClient(url, { useNewUrlParser: true });
+const mongoClient = new MongoClient(url);
 
 const uploadFiles = async (req, res) => {
   try {
