@@ -5,9 +5,9 @@ const MongoClient = require("mongodb").MongoClient;
 const GridFSBucket = require("mongodb").GridFSBucket;
 
 const url = dbConfig.url;
-let baseUrl = "http://localhost:8080/files/";
+let baseUrl = process.env.URL_PATH || "http://localhost:8080";
 
-const mongoClient = new MongoClient(url);
+const mongoClient = new MongoClient(url, { useNewUrlParser: true });
 
 const uploadFiles = async (req, res) => {
   try {
@@ -52,7 +52,7 @@ const getListFiles = async (req, res) => {
     await cursor.forEach((doc) => {
       fileInfos.push({
         name: doc.filename,
-        url: baseUrl + doc.filename,
+        url: `${baseUrl}/files/` + doc.filename,
       });
     });
     return res.status(200).send(fileInfos);
