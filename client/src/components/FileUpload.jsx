@@ -47,7 +47,7 @@ function FileUpload() {
     uploadFile();
     setTimeout(() => {
       setUploading(false);
-    }, 2500);
+    }, 5000);
   }, [imageFile]);
 
   if (uploading) {
