@@ -5,7 +5,7 @@ const { MongoClient, ServerApiVersion } = require("mongodb");
 const GridFSBucket = require("mongodb").GridFSBucket;
 
 const url = dbConfig.url;
-let baseUrl = process.env.URL_PATH || "http://localhost:8080";
+let baseUrl = process.env.URL_PATH;
 
 const mongoClient = new MongoClient(url);
 

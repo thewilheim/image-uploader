@@ -1,5 +1,5 @@
 module.exports = {
-  url: process.env.DB_URL || "mongodb://localhost:27017/",
+  url: process.env.DB_URL,
   database: "imageDB",
   imgBucket: "photos",
 };
