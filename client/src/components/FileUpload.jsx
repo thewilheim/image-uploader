@@ -15,39 +15,43 @@ function FileUpload() {
   const [imageFile, setImageFile] = useState("");
   const [filePath, setFilePath] = useState(null);
 
-  const uploadFile = () => {
-    setUploading(true);
+  const uploadFile = async () => {
 
-    const formdata = new FormData();
-    formdata.append("image", imageFile);
+    try {
+      setUploading(true);
 
-    console.log(formdata);
+      const formdata = new FormData();
+      formdata.append("image", imageFile);
+  
+      console.log(formdata);
 
-    const requestOptions = {
-      method: "POST",
-      body: formdata,
+      const requestOptions = {
+        method: "POST",
+        body: formdata,
+      };
+
+      const response = await fetch(`https://image-uploader-server-rho.vercel.app/upload`, requestOptions)
+
+      const result = await response.json();
+
+      setFilePath(
+        `https://image-uploader-server-rho.vercel.app/files/${result.fileName}`
+      );
+
+      setUploading(false);
+
+    } catch (error) {
+      console.log("error", error)
+    }
+
+
     };
-
-    fetch(`https://image-uploader-server-rho.vercel.app/upload`, requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        setFilePath(
-          `https://image-uploader-server-rho.vercel.app/files/${result.fileName}`
-        );
-        console.log(result);
-      })
-      .catch((error) => console.log("error", error));
-  };
 
   useEffect(() => {
     if (imageFile === "") {
       return;
     }
-    setUploading(true);
     uploadFile();
-    setTimeout(() => {
-      setUploading(false);
-    }, 5000);
   }, [imageFile]);
 
   if (uploading) {
