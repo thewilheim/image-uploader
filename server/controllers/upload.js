@@ -1,7 +1,7 @@
 const upload = require("../middleware/upload");
 const dbConfig = require("../config/database");
 
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient} = require("mongodb");
 const GridFSBucket = require("mongodb").GridFSBucket;
 
 const url = dbConfig.url;
