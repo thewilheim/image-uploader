@@ -68,4 +68,3 @@ $ npm start
 ## Contact
 
 - GitHub [@thewilheim](https://github.com/thewilheim)
-- Twitter [@wilheim](https://twitter.com/wilheim)
